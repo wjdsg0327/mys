@@ -96,6 +96,8 @@ def qd():
 
     time.sleep(15)
 
+
+
     # 截图
     abc = pyautogui.screenshot()
     abc.save("main.png")
@@ -103,15 +105,17 @@ def qd():
 
 
     print("打开米游社")
-    try:
-        yysRes = click_pic("mys.png","main.png","mysRes")
-        pyautogui.moveTo(x=yysRes[0]+30, y=yysRes[1]+30, duration=0.1)
-        pyautogui.click(button="LEFT",duration=0.1)
-    except Exception as e:
-        print("没有找到米游社")
-        with open('qdLog.txt', 'a', encoding='utf-8') as f:
-            f.write(formatted_time + '：没有找到米游社。\n')
+    # time.sleep(5)
+    MY_STEAM_COORDINATES = os.getenv('MY_STEAM_COORDINATES')
+    MY_STEAM_COORDINATES_x_str, MY_STEAM_COORDINATES_y_str = MY_STEAM_COORDINATES.split(",")
+    MY_STEAM_COORDINATES_x = int(MY_STEAM_COORDINATES_x_str.strip())  # .strip() 移除可能的空白字符
+    MY_STEAM_COORDINATES_y = int(MY_STEAM_COORDINATES_y_str.strip())
+    pyautogui.moveTo(x=MY_STEAM_COORDINATES_x, y=MY_STEAM_COORDINATES_y)
+    time.sleep(5)
+    pyautogui.click(button="LEFT",duration=0.1)
 
+
+    time.sleep(8)
     print("判断是否有青少年模式")
     try:
         p=pyautogui.locateCenterOnScreen("teenager.png", grayscale=False, confidence=0.5)
@@ -123,10 +127,10 @@ def qd():
     except Exception as e:
         print("没有青少年模式")
 
-
+    time.sleep(5)
     print("点击我知道了")
     pyautogui.moveTo(x=958, y=758)
-    time.sleep(10)
+    time.sleep(5)
     pyautogui.click(button="LEFT",duration=0.1)
     time.sleep(5)
 
@@ -134,8 +138,6 @@ def qd():
     pyautogui.press('esc')
     time.sleep(3)
 
-
-    time.sleep(3)
     print("打开签到福利")
     Sign_in_benefits = os.getenv('SIGN_IN_BENEFITS')
     x_str, y_str = Sign_in_benefits.split(",")
@@ -195,10 +197,10 @@ def qd():
         pyautogui.moveTo(x=Rolling_x, y=Rolling_y)
         time.sleep(1)
         print("看帖子")
-        pyautogui.scroll(-135)  # 滚轮向上滚动10格
+        pyautogui.scroll(-155)  # 滚轮向上滚动10格
         time.sleep(1)
         pyautogui.click(button="LEFT")
-        time.sleep(10)
+        time.sleep(5)
         print("点赞")
         pyautogui.moveTo(x=Like_x, y=Like_y)
         time.sleep(1)
